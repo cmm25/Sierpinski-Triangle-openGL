@@ -13,7 +13,6 @@ struct Edge {
     Point start, end;
 };
 
-// Function to calculate the intersection point of two line segments
 Point calculate_intersection(Point p1, Point p2, Point p3, Point p4) {
     Point intersection_point;
     GLfloat x1 = p1.x, y1 = p1.y;
@@ -35,7 +34,6 @@ Point calculate_intersection(Point p1, Point p2, Point p3, Point p4) {
     return intersection_point;
 }
 
-// Function to classify intersection points as entering or exiting
 void classify_intersection(Point& intersection, const Point& edge_start, const Point& edge_end, const Point& clip_vertex) {
     GLfloat dx = edge_end.x - edge_start.x;
     GLfloat dy = edge_end.y - edge_start.y;
@@ -57,21 +55,19 @@ void classify_intersection(Point& intersection, const Point& edge_start, const P
         intersection.x = -3.0; // Exiting
 }
 
-// Function to perform Greiner-Hormann polygon clipping algorithm
 vector<Point> clip_polygon(const vector<Point>& subject_polygon, const vector<Point>& clipping_polygon) {
     vector<Point> result;
     vector<Point> subject = subject_polygon;
 
-    // Perform Greiner-Hormann algorithm
-    for (int i = 0; i < clipping_polygon.size(); i++) {
-        int next = (i + 1) % clipping_polygon.size();
+    for (size_t i = 0; i < clipping_polygon.size(); i++) {
+        size_t next = (i + 1) % clipping_polygon.size();
         Point clip_start = clipping_polygon[i];
         Point clip_end = clipping_polygon[next];
 
         vector<Point> output_polygon;
 
-        for (int j = 0; j < subject.size(); j++) {
-            int next_subject = (j + 1) % subject.size();
+        for (size_t j = 0; j < subject.size(); j++) {
+            size_t next_subject = (j + 1) % subject.size();
             Point subject_start = subject[j];
             Point subject_end = subject[next_subject];
 
@@ -90,7 +86,6 @@ vector<Point> clip_polygon(const vector<Point>& subject_polygon, const vector<Po
         subject = output_polygon;
     }
 
-    // Convert points back to the original polygon format
     for (const auto& point : subject) {
         if (point.x >= 0)
             result.push_back(point);
@@ -108,24 +103,17 @@ void draw_clipped_polygon(const vector<Point>& clipped_polygon) {
     glEnd();
 }
 
-void draw() {
+void draw_sierpinski_triangle(int n) {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // Original polygon
-    vector<Point> subject_polygon = { {10.0, 10.0}, {25.0, 50.0}, {50.0, 0.0}, {40.0, 20.0}, {20.0, 5.0} };
+    // Original Sierpinski triangle (no need to clip here)
+    vector<Point> subject_polygon = { {0.0, 0.0}, {25.0, 50.0}, {50.0, 0.0} };
 
-    // Clipping region (rectangle)
-    vector<Point> clipping_polygon = { {10.0, 10.0}, {40.0, 10.0}, {40.0, 40.0}, {10.0, 40.0} };
-
-    // Clip the polygon against the clipping region
-    vector<Point> clipped_polygon = clip_polygon(subject_polygon, clipping_polygon);
-
-    // Draw the clipped polygon
-    draw_clipped_polygon(clipped_polygon);
+    // Draw the first triangle directly (no clipping needed)
+    draw_clipped_polygon(subject_polygon);
 
     glFlush();
 }
-
 void initialize() {
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glMatrixMode(GL_PROJECTION);
@@ -137,9 +125,9 @@ int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(500, 500);
-    glutCreateWindow("Clipping Polygon");
+    glutCreateWindow("Clipped Sierpinski Triangle");
     initialize();
-    glutDisplayFunc(draw);
+    glutDisplayFunc([]() { draw_sierpinski_triangle(3); });
     glutMainLoop();
     return 0;
 }
