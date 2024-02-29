@@ -1,5 +1,5 @@
-```markdown
-# Clipping the First Triangle of the Sierpinski Fractal using Greiner-Hormann Algorithm (C++ with OpenGL)
+
+# Clipping the First Triangle of the Sierpinski Fractal using the Greiner-Hormann Algorithm (C++ with OpenGL)
 
 ## Introduction:
 
@@ -66,4 +66,4 @@ This repository contains C++ code that demonstrates the clipping of the first tr
 3. Compile the code using your preferred C++ compiler (e.g., `g++ clipper.cpp -lglut -o clipper`).
 4. Run the executable (e.g., `./clipper`).
 5. The program should display the first triangle of the Sierpinski fractal in a red color.
-```
+
