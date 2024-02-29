@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sierpinskiclip.cpp">
+    <ClCompile Include="SierpinskiGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SierpinskiGL.cpp">
+    <ClCompile Include="Sierpinskiclip.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
