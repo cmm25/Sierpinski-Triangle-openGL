@@ -119,16 +119,16 @@ void classify_intersection(Point& intersection, const Point& edge_start, const P
 
     if (dy == 0) {
         if (dx > 0 && clip_vertex.y < edge_start.y)
-            intersection.x = -1.0; // Entering
+            intersection.x = -1.0; 
         else if (dx < 0 && clip_vertex.y > edge_start.y)
-            intersection.x = -2.0; // Entering
+            intersection.x = -2.0; 
         else
-            intersection.x = -3.0; // Exiting
+            intersection.x = -3.0; 
     }
     else if (cross_product > 0)
-        intersection.x = -1.0; // Entering
+        intersection.x = -1.0; 
     else
-        intersection.x = -3.0; // Exiting
+        intersection.x = -3.0; 
 }
 
 // Display function
@@ -150,7 +150,7 @@ void display()
     vector<Point> clipped_polygon = clip_sierpinski_triangle(vertices, clipping_polygon);
 
     // Draw the clipped polygon
-    glColor3f(1.0, 0.0, 0.0); // Set color to red
+    glColor3f(1.0, 0.0, 0.0); 
     glBegin(GL_POLYGON);
     for (const auto& vertex : clipped_polygon) {
         glVertex2f(vertex.x, vertex.y);
@@ -160,7 +160,6 @@ void display()
     glFlush();
 }
 
-// Initialization function
 void init()
 {
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -169,7 +168,6 @@ void init()
     gluOrtho2D(0.0, 200.0, 0.0, 200.0); // Set the viewing area
 }
 
-// Main function
 int main(int argc, char** argv)
 {
     cout << "Enter the number of divisions: ";
